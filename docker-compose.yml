@@ -1,0 +1,28 @@
+version: '3'
+services:
+  rstudio_development:
+    container_name: rstudio_dev
+    image: rstudio_develop
+    restart: unless-stopped
+    volumes:
+      - /home/mark/data:/data 
+      - /home/mark:/home
+    ports:
+      - 666:80
+  nginx_server:
+    container_name: nginx
+    image: nginx
+    restart: unless-stopped
+    volumes:
+      - /home/mark/report:/usr/share/nginx/html:ro
+    ports:
+      - 80:80
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9000:9000
+
