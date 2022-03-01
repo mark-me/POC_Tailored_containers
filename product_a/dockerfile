@@ -1,25 +1,26 @@
 FROM rstudio_dev:1.0
 
-RUN git clone --depth 1 --branch <tag_name> <repo_url>
-
-# create directories
-RUN mkdir -p /home/project
-RUN mkdir -p /home/project/input_data
-RUN mkdir -p /home/project/output
-RUN mkdir -p /data
-
-## copy files
-COPY main.R main.R
-COPY make_report.R make_report.R
-COPY config.yml config.yml
-COPY report.Rmd report.Rmd
-COPY install_packages.R install_packages.R
-
 ## install R-packages
 RUN Rscript /install_packages.R
 
-# open port 80 to traffic
-EXPOSE 80
+# Open port 80 to traffic
+EXPOSE 8000
+
+# Create directories
+RUN mkdir -p /data
+RUN mkdir -p /reports
+
+# Change working directory
+WORKDIR /home/rstudio
+
+# Clone git repo of the product
+RUN git clone --depth 1 --branch v1.0.1 https://github.com/mark-me/poc_tailored_script.git
+
+# Make bash script that runs the R script
+RUN printf "#!/bin/bash\n \
+cd poc_tailored_script\n \
+Rscript main.R" > run.sh
+RUN chmod +x run.sh
 
 # when the container starts, start the main.R script
-ENTRYPOINT ["Rscript", "main.R"]
+ENTRYPOINT ["./run.sh"]
