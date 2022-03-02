@@ -1,1 +1,1 @@
-# poc_tailored_containers
+# Tailored images
