@@ -14,7 +14,7 @@ RUN mkdir -p /reports
 WORKDIR /home/rstudio
 
 # Clone git repo of the product
-RUN git clone --depth 1 -b v1.0.2 https://github.com/mark-me/poc_tailored_product_a.git
+RUN git clone --depth 1 -b v1.0.3 https://github.com/mark-me/poc_tailored_product_a.git
 
 # Make bash script that runs the R script
 RUN printf "#!/bin/bash\n \
