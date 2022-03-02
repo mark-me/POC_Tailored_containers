@@ -14,11 +14,11 @@ RUN mkdir -p /reports
 WORKDIR /home/rstudio
 
 # Clone git repo of the product
-RUN git clone --depth 1 --branch v1.0.1 https://github.com/mark-me/poc_tailored_script.git
+RUN git clone --depth 1 -b v1.0.2 https://github.com/mark-me/poc_tailored_product_a.git
 
 # Make bash script that runs the R script
 RUN printf "#!/bin/bash\n \
-cd poc_tailored_script\n \
+cd poc_tailored_product_a\n \
 Rscript main.R" > run.sh
 RUN chmod +x run.sh
 
