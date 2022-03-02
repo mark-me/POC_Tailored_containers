@@ -1,4 +1,4 @@
-FROM rstudio_dev:1.0
+FROM rstudio_dev:v1.0.0
 
 ## install R-packages
 RUN Rscript /install_packages.R
